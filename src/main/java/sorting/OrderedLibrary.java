@@ -12,7 +12,10 @@ public class OrderedLibrary {
         this.library = new TreeSet<>(library);
     }
 
-    public Book lendFirstBook(){
+    public Book lendFirstBook() {
+        if (library.isEmpty()) {
+            throw new NullPointerException("Library is empty!");
+        }
         return new ArrayList<>(library).get(0);
     }
 }

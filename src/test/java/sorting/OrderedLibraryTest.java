@@ -1,5 +1,6 @@
 package sorting;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,15 +13,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class OrderedLibraryTest {
+
+public class OrderedLibraryTest {
 
     private List<Book> bookList = new ArrayList<>();
 
     @BeforeEach
     void setUp() throws IOException {
-        InputStream is = this.getClass().getClassLoader().getResourceAsStream("/books.csv");
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("books.csv");
         String line;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
             while ((line = reader.readLine()) != null) {
@@ -34,13 +37,13 @@ class OrderedLibraryTest {
 
 
     @Test
-    public void emptyCollectionShouldThrowException() throws NullPointerException {
+    void emptyCollectionShouldThrowException() throws NullPointerException {
         Exception ex = assertThrows(NullPointerException.class, () -> new OrderedLibrary(new TreeSet<>()).lendFirstBook());
-        assertEquals("Libray is empty!", ex.getMessage());
+        assertEquals("Library is empty!", ex.getMessage());
     }
 
     @Test
-    public void testLendFirstBook() {
+    void testLendFirstBook() {
         // Given
         Collections.shuffle(bookList);
         OrderedLibrary ol = new OrderedLibrary(new TreeSet<>(bookList));
@@ -49,5 +52,4 @@ class OrderedLibraryTest {
         //Then
         assertEquals(1001, book.getId());
     }
-
 }
